@@ -31,8 +31,6 @@ size_t get_tree_height(binary_tree_t *tree)
 
 size_t binary_tree_height(binary_tree_t *tree)
 {
-	size_t height = 0;
-
 	if (!tree)
 		return (0);
 
