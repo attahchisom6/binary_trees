@@ -1,7 +1,8 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_postorder - function to transverse the left, then tranverse the right
+ * binary_tree_postorder - function to transverse the left, then tranverse
+ * the right
  * then display it
  * @tree: pointer to the root node of the tree
  * @func: pointer to a function whose parameter is the value contained
