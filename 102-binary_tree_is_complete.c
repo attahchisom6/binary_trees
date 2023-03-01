@@ -1,54 +1,66 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_size - measures the size of a binary tree
+ * numNodes - getd the umber of nodes contained in a
+ * binary tree
+ * @tree: pointer to the root node
  *
- * @tree: tree root
- * Return: size of the tree or 0 if tree is NULL;
+ * Return: number of nodes in the tree
  */
-size_t binary_tree_size(const binary_tree_t *tree)
+
+int numNodes(binary_tree_t const *tree)
 {
-	if (tree == NULL)
+	int num;
+
+	if (!tree)
 		return (0);
 
-	return (binary_tree_size(tree->left) + binary_tree_size(tree->right) + 1);
+	num = 1 + numNodes(tree->left) + numNodes(tree->right);
+
+	return (num);
 }
 
 /**
- * tree_is_complete - checks if tree is complete
+ * check_complete_tree - checks if a tree is complete
+ * @tree: pointer to the root node of the tree
+ * @num: number of nodes in the tree
+ * @idx: index of the node, where count is started from
+ * the left subree
  *
- * @tree: pointer to the tree root
- * @i: node index
- * @cnodes: number of nodes
- * Return: 1 if tree is complete, 0 otherwise
+ * Return: 1 if complete
  */
-int tree_is_complete(const binary_tree_t *tree, int i, int cnodes)
+
+int check_complete_tree(binary_tree_t const *tree, int num, int idx)
 {
-	if (tree == NULL)
+	int complete;
+
+	if (!tree)
 		return (1);
 
-	if (i >= cnodes)
+	if (idx >= num)
 		return (0);
+	complete = check_complete_tree(tree->left, num, 2 * idx + 1)
+		&&
+		check_complete_tree(tree->right, num, 2 * idx + 2);
 
-	return (tree_is_complete(tree->left, (2 * i) + 1, cnodes) &&
-		tree_is_complete(tree->right, (2 * i) + 2, cnodes));
+	return (complete);
 }
 
 
 /**
- * binary_tree_is_complete - calls to tree_is_complete function
+ * binary_tree_is_complete - calls check_completet to verify its test
+ * @tree: a pointer to th9e root node
  *
- * @tree: tree root
- * Return: 1 if tree is complete, 0 otherwise
+ * Return: 1 if complete 0 otherwise
  */
-int binary_tree_is_complete(const binary_tree_t *tree)
-{
-	size_t cnodes;
 
-	if (tree == NULL)
+int binary_tree_is_complete(binary_tree_t const *tree)
+{
+	int num;
+
+	if (!tree)
 		return (0);
 
-	cnodes = binary_tree_size(tree);
-
-	return (tree_is_complete(tree, 0, cnodes));
+	num = numNodes(tree);
+	return (check_complete_tree(tree, num, 0));
 }
