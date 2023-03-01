@@ -4,7 +4,7 @@
  * get_tree_height - recursive function to estimate the height of a tree
  * @tree: root of the tree
  *
- * return: estimate of the height else 0
+ * Return: estimate of the height else 0
  */
 
 size_t get_tree_height(binary_tree_t *tree)
