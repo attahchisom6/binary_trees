@@ -26,7 +26,7 @@ size_t get_tree_height(binary_tree_t *tree)
  * binary_tree_height - get the height of the a binary tree
  * @tree: eoot of the tree
  *
- * return: height of the tree else 0
+ * Return: height of the tree else 0
  */
 
 size_t binary_tree_height(binary_tree_t *tree)
