@@ -7,7 +7,7 @@
  * Return: estimate of the height else 0
  */
 
-size_t get_tree_height(binary_tree_t *tree)
+size_t get_tree_height(const binary_tree_t *tree)
 {
 	size_t left = 0;
 	size_t right = 0;
