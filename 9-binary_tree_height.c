@@ -29,7 +29,7 @@ size_t get_tree_height(const binary_tree_t *tree)
  * Return: height of the tree else 0
  */
 
-size_t binary_tree_height(binary_tree_t *tree)
+size_t binary_tree_height(const binary_tree_t *tree)
 {
 	if (!tree)
 		return (0);
