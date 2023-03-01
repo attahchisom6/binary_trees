@@ -4,8 +4,8 @@
  * binary_tree_inorder - function to transverse the left, display it, and then
  * tranverse the right
  * @tree: pointer to the root node of the tree
- * @func: pointer to a function whose parameter is the value contained in the 
- * node
+ * @func: pointer to a function whose parameter is the value contained
+ * in the  node
  *
  * Return: void
  */
