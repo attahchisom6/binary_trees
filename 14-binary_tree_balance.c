@@ -1,7 +1,7 @@
 #include "binary_trees.h"
 
 /**
- * get_tree_height: estimate the height of tree
+ * get_height: estimate the height of tree
  * @tree: pointer to the root of the the root of the tree
  *
  * Return: estimated height
@@ -13,7 +13,7 @@ int get_height(const binary_tree_t *tree)
 
 	if (!tree)
 		return (0);
-	
+
 	left = get_height(tree->left);
 	right = get_height(tree->right);
 
@@ -29,7 +29,7 @@ int get_height(const binary_tree_t *tree)
  * Return: actual height of the tree
  */
 
- int height(const binary_tree_t *tree)
+int height(const binary_tree_t *tree)
 {
 	if (!tree)
 		return (-1);
