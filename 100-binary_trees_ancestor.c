@@ -1,93 +1,74 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_sibling - function that checks if a node has a sibling
- * @node: pointer to the node to check
+ * recursive - estimates the distance ofa node from the root node
+ * @tree: pointer to the root node ot the tree
  *
- * Return: 1 if it has a sibling, else 0
+ * Return: recursive depth of the tree
  */
 
-binary_tree_t *binary_tree_siblingg(const binary_tree_t *node)
+size_t recursive_depth(const binary_tree_t *tree)
 {
-	binary_tree_t *parent, *sibling;
+	size_t depth;
 
-	if (!node)
-		return (NULL);
+	if (!tree)
+		return (-1);
 
-	parent = node->parent;
-	if (parent != NULL)
-	{
-		if (node == parent->left)
-		{
-			sibling = parent->right;
-			return (sibling);
-		}
-
-		else if (node == parent->right)
-		{
-			sibling = parent->left;
-			return (sibling);
-		}
-		return (NULL);
-	}
-	return (NULL);
+	depth = recursive_depth(tree->parent);
+	return (depth + 1);
 }
 
 /**
- * binary_tree_uncle - get the uncle of a node, that is the sibling of its
- * parent
- * @node: node whose uncle is sought
+ * get_depth - gets the actual value of the depth
+ * @tree:pointer to the root node
  *
- * Return: pointer to the uncle node
+ * Return: real depth of the tree
  */
 
-binary_tree_t *binary_tree_unclee(const binary_tree_t *node)
+size_t get_depth(const binary_tree_t *tree)
 {
-	binary_tree_t *parent, *uncle;
+	if (!tree)
+		return (0);
 
-	if (!node)
-		return (NULL);
-
-	parent = node->parent;
-	if (!parent)
-		return (NULL);
-
-	uncle = binary_tree_siblingg(parent);
-	if (!uncle)
-		return (NULL);
-
-	return (uncle);
+	return (recursive_depth(tree));
 }
 
 /**
  * binary_trees_ancestor - gets the lowest common ancestor of two nodes
- * @first: pointer to the first node
- * @second: pointer to the second node
+ * @tree: pointer to the root node
  *
- * Return: pointer to the ancestor of both nodes
+ * Return: pointer to the root node
  */
 
 binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 		const binary_tree_t *second)
 {
-	binary_tree_t const *ancestor;
+	size_t right, left;
+	binary_tree_t *ancestor;
 
-	if (first == binary_tree_siblingg(second))
-	{
-		ancestor = first->parent;
-		return ((binary_tree_t *)ancestor);
-	}
-	else if (first == binary_tree_unclee(second))
-	{
-		ancestor = first->parent;
-		return ((binary_tree_t *)ancestor);
-	}
-	else if (first == second->parent)
-	{
-		ancestor = first;
+	if (!first || !second)
+		return (NULL);
 
-		return ((binary_tree_t *)ancestor);
+	if (first == second)
+		return ((binary_tree_t *)first);
+
+	left = get_depth(first);
+	right = get_depth(second);
+
+	if (left > right)
+	{
+		ancestor = binary_trees_ancestor(first->parent, second);
+
+		return (ancestor);
 	}
 
-	return (NULL);
+	else if (right > left)
+	{
+		ancestor = binary_trees_ancestor(first, second->parent);
+
+		return (ancestor);
+	}
+	ancestor = binary_trees_ancestor(first->parent, second->parent);
+
+	return (ancestor);
 }
