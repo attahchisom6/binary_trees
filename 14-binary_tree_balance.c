@@ -1,7 +1,7 @@
 #include "binary_trees.h"
 
 /**
- * get_height: estimate the height of tree
+ * get_height - estimate the height of tree
  * @tree: pointer to the root of the the root of the tree
  *
  * Return: estimated height
