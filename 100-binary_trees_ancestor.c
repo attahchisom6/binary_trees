@@ -1,7 +1,7 @@
 #include "binary_trees.h"
 
 /**
- * recursive - estimates the distance ofa node from the root node
+ * recursive_depth - estimates the distance ofa node from the root node
  * @tree: pointer to the root node ot the tree
  *
  * Return: recursive depth of the tree
@@ -35,7 +35,8 @@ size_t get_depth(const binary_tree_t *tree)
 
 /**
  * binary_trees_ancestor - gets the lowest common ancestor of two nodes
- * @tree: pointer to the root node
+ * @first: pointer to the first node
+ * @second: pointer to the second node
  *
  * Return: pointer to the root node
  */
