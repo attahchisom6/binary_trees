@@ -1,7 +1,7 @@
 #include "binary_trees.h"
 
 /**
- * recursive_height - get the recursive height of the tree
+ * re_height - get the recursive height of the tree
  * @tree: pointer to the root node
  *
  * Return: recursive of the tree
