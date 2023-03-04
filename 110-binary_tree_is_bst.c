@@ -1,5 +1,4 @@
 #include "binary_trees.h"
-#include "limits.h"
 
 /**
  * bst_analyser - analyzed a binary tree to check if it met
