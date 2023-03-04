@@ -1,6 +1,6 @@
 #include "binary_trees.h"
 
-/*"
+/**
  * binary_tree_rotate_right - rotates a binary tree thats left inclined
  * to the right side
  * @tree: pionter to the root node
@@ -19,7 +19,7 @@ binary_tree_t *binary_tree_rotate_right(binary_tree_t *tree)
 	if (new->right)
 	{
 		tree->left = new->right;
-		/*new->right->parent = tree;*/
+		new->right->parent = tree;
 	}
 	else
 		tree->left = NULL;
