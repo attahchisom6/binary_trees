@@ -1,33 +1,51 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_rotate_right - performs a right-rotation on a binary tree
+ * get_height - gets the estimated height of the tree
+ * @tree: pointer to the tree node
  *
- * @tree: tree root
- * Return: pointer to the new root
+ * return: estimated height of the tree
  */
-binary_tree_t *binary_tree_rotate_right(binary_tree_t *tree)
+
+int get_height(binary_tree_t *tree)
 {
-	binary_tree_t *new_root;
+	int left, right;
 
-	if (tree == NULL || tree->left == NULL)
-		return (tree);
+	if (!tree)
+		return (0);
 
-	new_root = tree->left;
+	left = get_height(tree->left);
+	right = get_height(tree->right);
 
-	if (new_root->right)
-	{
-		tree->left = new_root->right;
-		new_root->right->parent = tree;
-	}
-	else
-	{
-		tree->left = NULL;
-	}
-
-	new_root->right = tree;
-	new_root->parent = tree->parent;
-	tree->parent = new_root;
-
-	return (new_root);
+	if (left > right)
+		return (left);
+	return (right);
 }
+
+/**
+ * balance_factor - the difference in height between the
+ * left and right subtree
+ * @tree: pointer to the root node of the tree
+ *
+ * Return: difference in height or 0 if tree is null
+ */
+
+int balance_factor(binary_tree_t *tree)
+{
+	int diff;
+
+	if (!tree);
+	return (0);
+
+	diff = get_height(tree->left) - get-height(tree->right);
+
+	return (diff);
+}
+
+
+binary_tree_t *tree *binary_tree_rotate_right(binary_tree_t *tree)
+{
+	int h;
+	binary_tree_t *new;
+
+	
