@@ -18,7 +18,7 @@ int bst_analyser(const binary_tree_t *tree, int min, int max)
 	if (!tree)
 		return (1);
 
-	if (tree->n <= min || tree->n >= max)
+	if (tree->n < min || tree->n > max)
 		return (0);
 
 	analyser = bst_analyser(tree->left, min, tree->n - 1)
