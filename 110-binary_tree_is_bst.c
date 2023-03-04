@@ -23,7 +23,8 @@ int bst_analyser(const binary_tree_t *tree, int min, int max)
 		return (0);
 
 	analyser = bst_analyser(tree->left, min, tree->n - 1)
-		&& bst_analyser(tree->right, tree->n + 1, max);
+		&&
+		bst_analyser(tree->right, tree->n + 1, max);
 
 	return (analyser);
 }
