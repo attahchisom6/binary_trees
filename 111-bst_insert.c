@@ -47,7 +47,7 @@ bst_t *bst_sort_insert(bst_t **tree, int value)
 /**
  * bst_insert - inserts a node in a BST
  * @tree: pointer to the root node
- * value: value to be stored in the root node
+ * @value: value to be stored in the root node
  * Return: pointer to the inserted node
  */
 
