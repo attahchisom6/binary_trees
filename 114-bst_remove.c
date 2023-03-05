@@ -12,9 +12,6 @@ bst_t *inorder_successor(bst_t *root)
 {
 	bst_t *successor;
 
-	if (!root)
-		return (NULL);
-
 	successor = root;
 	while (successor->left)
 		successor = successor->left;
