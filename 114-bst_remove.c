@@ -46,17 +46,15 @@ bst_t *bst_remove(bst_t *root, int value)
 		{
 			temp = root->right;
 			free(root);
-			root = temp;
 
-			return (root);
+			return (temp);
 		}
 		if (!root->right)
 		{
 			temp = root->left;
 			free(root);
-			root = temp;
 
-			return (root);
+			return (temp);
 		}
 		temp = inorder_successor(root->right);
 		root->n = temp->n;
