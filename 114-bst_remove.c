@@ -1,7 +1,7 @@
 #include "binary_trees.h"
 
 /**
- * inorder_successor: moves along the left subtrees of a tree
+ * inorder_successor - moves along the left subtrees of a tree
  * in search of a node with the lowrst value
  * @root: root of the tree
  *
