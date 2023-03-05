@@ -15,10 +15,11 @@ bst_t *inorder_successor(bst_t *root)
 	if (!root)
 		return (NULL);
 
-	while (root->left)
-		root = root->left;
+	successor = root;
+	while (successor->left)
+		successor = successor->left;
 
-	return (successor = root);
+	return (successor);
 }
 
 /**
