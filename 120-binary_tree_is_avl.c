@@ -59,7 +59,7 @@ int avl_analyser(const binary_tree_t *tree, int min, int max)
 }
 
 /**
- * binary_tree_is_bst - checks if a given tree is a bst tree
+ * binary_tree_is_avl - checks if a given tree is a bst tree
  * @tree: pointer to the root of the tree
  *
  * Return: 1 if it is a BST, else 0
