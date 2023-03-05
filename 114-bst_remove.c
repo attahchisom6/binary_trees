@@ -47,7 +47,7 @@ bst_t *bst_remove(bst_t *root, int value)
 
 			return (temp);
 		}
-		if (!root->right)
+		else if (!root->right)
 		{
 			temp = root->left;
 			free(root);
