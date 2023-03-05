@@ -47,7 +47,8 @@ int avl_analyser(const binary_tree_t *tree, int min, int max)
 	right_h = get_height(tree->right);
 	if (left_h > right_h)
 		diff = left_h - right_h;
-	diff = right_h - left_h;
+	else
+		diff = right_h - left_h;
 	if (diff > 1)
 		return (0);
 
