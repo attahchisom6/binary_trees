@@ -23,7 +23,5 @@ bst_t *array_to_bst(int *array, size_t size)
 		k++;
 	}
 
-	if (k == size)
-		return (tree);
-	return (NULL);
+	return (tree);
 }
