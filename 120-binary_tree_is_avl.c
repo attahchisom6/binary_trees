@@ -9,7 +9,7 @@
 
 int get_height(const binary_tree_t *tree)
 {
-	int left = 0, right = 0;
+	int left = 1, right = 1;
 
 	if (!tree)
 		return (0);
