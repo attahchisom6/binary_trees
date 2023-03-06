@@ -3,7 +3,7 @@
 /**
  * search - searches a BST for a given value
  * @tree: pointer to the root node
- * value: value we seek in the tree
+ * @value: value we seek in the tree
  *
  * Return: pointer to the node if found
  */
