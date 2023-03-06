@@ -1,7 +1,7 @@
 #include "binary_trees.h"
 
 /**
- * search - searches a BST for a given value
+ * search_value - searches a BST for a given value
  * @tree: pointer to the root node
  * @value: value we seek in the tree
  *
@@ -30,8 +30,6 @@ bst_t *search_value(const bst_t *tree, int value)
 	}
 	return (NULL);
 }
-
-		
 
 /**
  * bst_search - searches BST for a value
