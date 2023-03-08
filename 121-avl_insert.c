@@ -57,42 +57,39 @@ avl_t *avl_sort_insert(avl_t **tree, int value)
 {
 	avl_t *new;
 
-
-	while (*tree)
+	if (value < (*tree)->n)
 	{
-		if (value < (*tree)->n)
+		if (!(*tree)->left)
 		{
-			if (!(*tree)->left)
-			{
-				(*tree)->left = binary_tree_node((*tree)->left, value);
+			(*tree)->left = binary_tree_node((*tree)->left, value);
 
-				return ((*tree)->left);
-			}
-			else
-			{
-				new = avl_sort_insert(&(*tree)->left, value);
-				if (new)
-					avl_tree_balancer(&new, value);
-
-				return (new);
-			}
+			return ((*tree)->left);
 		}
-		if (value > (*tree)->n)
+		else
 		{
-			if (!(*tree)->right)
-			{
-				(*tree)->right = binary_tree_node((*tree)->right, value);
+			new = avl_sort_insert(&(*tree)->left, value);
+			if (new)
+				avl_tree_balancer(&new, value);
 
-				return ((*tree)->right);
-			}
-			else
-			{
-				new = avl_sort_insert(&(*tree)->right, value);
-				if (new)
-					avl_tree_balancer(&new, value);
+			return (new);
+		}
+	}
+	if (value > (*tree)->n)
+	{
+		if (!(*tree)->right)
+		{
+			(*tree)->right = binary_tree_node((*tree)->right, value);
 
-				return (new);
-			}
+			return ((*tree)->right);
+		}
+		else
+		{
+			new = avl_sort_insert(&(*tree)->right, value);
+				
+			if (new)
+				avl_tree_balancer(&new, value);
+
+			return (new);
 		}
 	}
 	return (NULL);
@@ -115,7 +112,5 @@ avl_t *avl_insert(avl_t **tree, int value)
 
 		return (*tree);
 	}
-	else
-		return (avl_sort_insert(tree, value));
-	return (NULL);
+	return (avl_sort_insert(tree, value);
 }
