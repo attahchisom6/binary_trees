@@ -81,8 +81,7 @@ bst_t *remove_recursion(bst_t *root, bst_t *node, int value)
 			return (remove_recursion(root, node->left, value));
 		else if (value > node->n)
 			return (remove_recursion(root, node->right, value));
-		else if (value == node->n)
-			return (node_destroyer(root, node));
+		return (node_destroyer(root, node));
 	}
 	return (NULL);
 }
