@@ -2,7 +2,7 @@
 
 /**
  * binary_tree_rotate_right - rotates a binary tree thats left inclined
- * to the right side
+ * to the right side of the tree
  * @tree: pionter to the root node
  *
  * Return: Pointer to the new node that should be an anchor for rotation
