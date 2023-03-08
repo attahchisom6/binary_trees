@@ -112,5 +112,5 @@ avl_t *avl_insert(avl_t **tree, int value)
 
 		return (*tree);
 	}
-	return (avl_sort_insert(tree, value);
+	return (avl_sort_insert(tree, value));
 }
