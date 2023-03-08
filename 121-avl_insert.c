@@ -52,7 +52,7 @@ avl_t *avl_tree_balancer(avl_t **tree, int value)
 
 avl_t *avl_sort_insert(avl_t **tree, int value)
 {
-	avl_t *root, *new;
+	avl_t *root, *new, *neww;
 
 	/*if (!root)
 		return (NULL);*/
@@ -72,9 +72,9 @@ avl_t *avl_sort_insert(avl_t **tree, int value)
 			{
 				new = avl_sort_insert(&root->left, value);
 				if (new)
-					new = avl_tree_balancer(&new, value);
+					neww = avl_tree_balancer(&new, value);
 
-				return (new);
+				return (neww);
 			}
 		}
 		if (value > root->n)
@@ -89,9 +89,9 @@ avl_t *avl_sort_insert(avl_t **tree, int value)
 			{
 				new = avl_sort_insert(&root->right, value);
 				if (new)
-					new = avl_tree_balancer(&new, value);
+					neww = avl_tree_balancer(&new, value);
 
-				return (new);
+				return (neww);
 			}
 		}
 	}
