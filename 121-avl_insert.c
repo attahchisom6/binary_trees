@@ -3,97 +3,101 @@
 /**
  * avl_tree_balancer - balances a tree to obtain avl tree
  * @tree: pointer to the root of the tree
- * @value: value contained in the (*tree) to balance
+ * @value: value contained in the node to balance
  *
- * Return: pointer to the the new created (*tree) root
+ * Return: pointer to the the new created node root
  */
 
-void avl_tree_balancer(avl_t **tree, int value)
+avl_t *avl_tree_balancer(avl_t **tree, int value)
 {
+	avl_t *node;
 	int bfactor;
 
-	bfactor = binary_tree_balance((*tree));
+	/*if (!tree)
+		return (NULL);*/
+
+	node = *tree;
+	bfactor = binary_tree_balance(node);
 	/**LEFT LEFT case*/
-	if (bfactor > 1 && value < (*tree)->left->n)
-	{
-		*tree = binary_tree_rotate_right((*tree));
-		return;
-	}
+	if (bfactor > 1 && value < node->left->n)
+		return (binary_tree_rotate_right(node));
 	/*LEFT RIGHT CASE*/
-	if (bfactor > 1 && value > (*tree)->left->n)
+	if (bfactor > 1 && value > node->left->n)
 	{
-		(*tree)->left = binary_tree_rotate_left((*tree)->left);
-		*tree = binary_tree_rotate_right((*tree));
-		return;
+		node->left = binary_tree_rotate_left(node->left);
+		return (binary_tree_rotate_right(node));
 	}
 
 	/*RIGHT RIGHT case*/
-	if (bfactor < -1 && value > (*tree)->right->n)
-	{
-		*tree = binary_tree_rotate_left((*tree));
-		return;
-	}
+	if (bfactor < -1 && value > node->right->n)
+		return (binary_tree_rotate_left(node));
 
 	/**RIGHT LEFT case*/
-	if (bfactor < -1 && value < (*tree)->right->n)
+	if (bfactor < -1 && value < node->right->n)
 	{
-		(*tree)->right = binary_tree_rotate_right((*tree)->right);
-		*tree = binary_tree_rotate_left((*tree));
-		return;
+		node->right = binary_tree_rotate_right(node->right);
+		return (binary_tree_rotate_left(node));
 	}
+	return (node);
 }
-
 
 /**
  * avl_sort_insert - sort or decide in which order element are inserted
  * in the avl tree
- * @tree: double pointer to the (*tree) node
+ * @tree: double pointer to the root node
  * @value: valued held by each node in the tree
  *
- * Return: pointer to the new (*tree)
+ * Return: pointer to the new root
  */
 
 avl_t *avl_sort_insert(avl_t **tree, int value)
 {
-	avl_t *new;
+	avl_t *root, *new, *neww;
 
-	if (value < (*tree)->n)
+	/*if (!root)
+		return (NULL);*/
+
+	root = *tree;
+	while (root)
 	{
-		if (!(*tree)->left)
+		if (value < root->n)
 		{
-			(*tree)->left = binary_tree_node(*tree, value);
+			if (!root->left)
+			{
+				root->left = binary_tree_node(root, value);
 
-			return ((*tree)->left);
+				return (root->left);
+			}
+			else
+			{
+				new = avl_sort_insert(&root->left, value);
+				if (new)
+					neww = avl_tree_balancer(&root, value);
+
+				return (neww);
+			}
 		}
-		else
+		if (value > root->n)
 		{
-			new = avl_sort_insert(&(*tree)->left, value);
-			if (new)
-				avl_tree_balancer(tree, value);
+			if (!root->right)
+			{
+				root->right = binary_tree_node(root, value);
 
-			return (new);
-		}
-	}
-	if (value > (*tree)->n)
-	{
-		if (!(*tree)->right)
-		{
-			(*tree)->right = binary_tree_node(*tree, value);
+				return (root->right);
+			}
+			else
+			{
+				new = avl_sort_insert(&root->right, value);
+				if (new)
+					neww = avl_tree_balancer(&root, value);
 
-			return ((*tree)->right);
+				return (neww);
+			}
 		}
-		else
-		{
-			new = avl_sort_insert(&(*tree)->right, value);
-			if (new)
-				avl_tree_balancer(tree, value);
-
-			return (new);
-		}
+		return (*tree);
 	}
 	return (NULL);
 }
-
 
 /**
  * avl_insert -inserts a node in an avl tree
@@ -111,5 +115,7 @@ avl_t *avl_insert(avl_t **tree, int value)
 
 		return (*tree);
 	}
-	return (avl_sort_insert(tree, value));
+	else
+		return (avl_sort_insert(tree, value));
+	return (NULL);
 }
