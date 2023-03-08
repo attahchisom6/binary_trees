@@ -85,7 +85,6 @@ avl_t *avl_sort_insert(avl_t **tree, int value)
 		else
 		{
 			new = avl_sort_insert(&(*tree)->right, value);
-				
 			if (new)
 				avl_tree_balancer(&new, value);
 
