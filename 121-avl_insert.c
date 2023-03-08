@@ -108,9 +108,6 @@ avl_t *avl_sort_insert(avl_t **tree, int value)
 
 avl_t *avl_insert(avl_t **tree, int value)
 {
-	if (!tree)
-		return (NULL);
-
 	if (!*tree)
 	{
 		*tree = binary_tree_node(NULL, value);
