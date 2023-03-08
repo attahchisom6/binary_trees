@@ -30,7 +30,7 @@ avl_t *avl_tree_balancer(avl_t **tree, int value)
 
 	/*RIGHT RIGHT case*/
 	if (bfactor < -1 && value > node->right->n)
-		return (binary_tree_rotate_right(node));
+		return (binary_tree_rotate_left(node));
 
 	/**RIGHT LEFT case*/
 	if (bfactor < -1 && value < node->right->n)
