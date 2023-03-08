@@ -12,9 +12,9 @@ bst_t *inorder_successor(bst_t *root)
 {
 	bst_t *successor = root;
 
-	while (root->left)
-		root = root->left;
-	return (root);
+	while (successor->left)
+		successor = successor->left;
+	return (successor);
 }
 
 /**
