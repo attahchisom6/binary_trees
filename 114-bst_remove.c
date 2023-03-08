@@ -12,27 +12,26 @@ bst_t *inorder_successor(bst_t *root)
 {
 	bst_t *successor = root;
 
-	while (successor->left)
-		successor = successor->left;
-	return (successor);
+	while (root->left)
+		root = root->left;
+	return (root);
 }
 
 /**
  * node_destroyer - removes a node with a given value
- * @value: value contained by the node to destroy
  * @root: pointer to the root node
  * @node: pointer to the node to destroy
  *
- * return: pointer to the new root
+ * Return: pointer to the new root
  */
 
 bst_t *node_destroyer(bst_t *root, bst_t *node)
 {
-	bst_t *temp, *parent;
+	bst_t *temp = NULL, *parent;
 
 	parent = node->parent;
 
-	/*node has doesn't have a left child*/
+	/*node doesn't have a left child*/
 	if (!node->left)
 	{
 		if (parent && parent->left == node)
@@ -66,28 +65,37 @@ bst_t *node_destroyer(bst_t *root, bst_t *node)
 }
 
 /**
+ * remove_recursion - recusively remove a node from a BST
+ * @root: pointer to the root node
+ * @node: node to remove
+ * @value: value contained in the node we to remove
+ *
+ * Return: pointer to the new root
+ */
+
+bst_t *remove_recursion(bst_t *root, bst_t *node, int value)
+{
+	if (node)
+	{
+		if (value < node->n)
+			return (remove_recursion(root, node->left, value));
+		else if (value > node->n)
+			return (remove_recursion(root, node->right, value));
+		else if (value == node->n)
+			return (node_destroyer(root, node));
+	}
+	return (NULL);
+}
+
+/**
  * bst_remove - remove a node with a given value from aBST
  * @root: pointer to the root node
- * @valuel: value contained in the node
+ * @value: value contained in the node
  *
  * Return: pointer to the new created root
  */
 
 bst_t *bst_remove(bst_t *root, int value)
 {
-	bst_t *temp;
-
-	if (!root)
-		return (NULL);
-
-	if (value < root->n)
-		root->left = bst_remove(root->left, value);
-	else if (value > root->n)
-		root->left = bst_remove(root->right, value);
-	else
-	{
-		node_destroyer(root, root);
-	}
-
-	return (NULL);
+	return (remove_recursion(root, root, value));
 }
