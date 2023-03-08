@@ -77,7 +77,7 @@ avl_t *avl_sort_insert(avl_t **tree, int value)
 				return (new);
 			}
 		}
-		else if (value > root->n)
+		if (value > root->n)
 		{
 			if (!root->right)
 			{
