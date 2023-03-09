@@ -56,7 +56,6 @@ avl_t *inorder_successor(avl_t *root)
 avl_t *delete_node(avl_t *root, avl_t *node)
 {
 	avl_t *successor = NULL, *parent = node->parent;
-	int bfactor;
 
 	if (node)
 	{
