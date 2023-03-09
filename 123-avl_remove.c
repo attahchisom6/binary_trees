@@ -1,48 +1,29 @@
 #include "binary_trees.h"
 
 /**
- * avl_tree_balance - balances a root into an avl root
+ * avl_tree_balancerr - balances a root into an avl root
  * @root: pointer to the root node of the root
  * @value: value contained in the nose
  *
  * Return: void
  */
 
-void avl_tree_balancerr(avl_t *root, int value)
+void avl_tree_balancerr(avl_t **root, int value)
 {
 	int bfactor;
 
-	bfactor = binary_tree_balance(root);
-
-	/**LEFT LEFT CASE case*/
-	if (bfactor > 1 && value < root->left->n)
-	{
-		root = binary_tree_rotate_right(root);
+	if (!root || !*root)
 		return;
-	}
-
-	/*LEFT RIGHT case*/
-	if (bfactor > 1 && value > root->left->n)
-	{
-		root->left = binary_tree_rotate_left(root->left);
-		root = binary_tree_rotate_right(root);
+	if (!(*root)->left || !(*root)->right)
 		return;
-	}
+	avl_tree_balancerr(&(*root)->left, value);
+	avl_tree_balancerr(&(*root)->right, value);
 
-	/*RIGHT RIGHT case*/
-	if (bfactor < -1 && value > root->right->n)
-	{
-		root = binary_tree_rotate_left(root);
-		return;
-	}
-
-	/*RIGHT LEFT case*/
-	if (bfactor < -1 && value < root->right->n)
-	{
-		root->right = binary_tree_rotate_right(root->right);
-		root = binary_tree_rotate_left(root);
-		return;
-	}
+	bfactor = binary_tree_balance(*root);
+	if (bfactor > 1)
+		*root = binary_tree_rotate_right(*root);
+	else if (bfactor < -1)
+		*root = binary_tree_rotate_left(*root);
 }
 
 /**
@@ -112,10 +93,6 @@ avl_t *delete_node(avl_t *root, avl_t *node)
 		node->n = successor->n;
 
 		return (delete_node(root, successor));
-
-		bfactor = binary_tree_balance(node);
-		if (bfactor < -1 || bfactor > 1)
-			avl_tree_balancerr(node, node->n);
 	}
 	return (root);
 }
@@ -136,7 +113,7 @@ avl_t *search_remove(avl_t *root, avl_t *node, int value)
 		return (NULL);
 
 	if (!node)
-		return (NULL);
+		return (root);
 
 	if (value < node->n)
 		return (search_remove(root, node->left, value));
@@ -155,5 +132,10 @@ avl_t *search_remove(avl_t *root, avl_t *node, int value)
 
 avl_t *avl_remove(avl_t *root, int value)
 {
-	return (search_remove(root, root, value));
+	avl_t *mroot = NULL;
+
+	mroot = search_remove(root, root, value);
+	if (mroot)
+		avl_tree_balancerr(&root, value);
+	return (mroot);
 }
