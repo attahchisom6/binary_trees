@@ -112,7 +112,7 @@ avl_t *search_remove(avl_t *root, avl_t *node, int value)
 		return (NULL);
 
 	if (!node)
-		return (root);
+		return (NULL);
 
 	if (value < node->n)
 		return (search_remove(root, node->left, value));
