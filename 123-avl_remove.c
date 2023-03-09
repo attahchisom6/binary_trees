@@ -59,7 +59,14 @@ avl_t *delete_node(avl_t *root, avl_t *node)
 
 	if (node)
 	{
-		/*node has no right child*/
+		/*node has no children*/
+		if (!node->left && !node->right)
+		{
+			parent->right == node ? (parent->right = NULL) : (parent->left = NULL);
+			free(node);
+			return (!parent ? NULL : root);
+		}
+		/*node has no left child*/
 		if (!node->left)
 		{
 			if (parent->right == node)
@@ -69,10 +76,8 @@ avl_t *delete_node(avl_t *root, avl_t *node)
 			if (node->right)
 				node->right->parent = parent;
 			free(node);
-
 			return (!parent ? node->right : root);
 		}
-
 		/*node has no right child*/
 		else if (!node->right)
 		{
@@ -83,17 +88,13 @@ avl_t *delete_node(avl_t *root, avl_t *node)
 			if (node->left)
 				node->left->parent = parent;
 			free(node);
-
-			return (!parent ? node->left: root);
+			return (!parent ? node->left : root);
 		}
-		
 		/*node has two children*/
 		successor = inorder_successor(node->right);
 		node->n = successor->n;
-
 		return (delete_node(root, successor));
-	}
-	return (root);
+	} return (root);
 }
 
 /**
@@ -123,7 +124,7 @@ avl_t *search_remove(avl_t *root, avl_t *node, int value)
 
 /**
  * avl_remove - removes a node from an avl tree
- * root: pointer to the root node
+ * @root: pointer to the root node
  * @value: value contained in the node to delete
  *
  * Return: ointer pointer to the new root
