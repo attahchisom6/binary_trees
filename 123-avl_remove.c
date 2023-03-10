@@ -2,8 +2,9 @@
 
 /**
  * avl_tree_balancerr - balances a root into an avl root
- * @root: pointer to the root node of the root
- * @value: value contained in the nose
+ * @root: pointer to the root node
+ * @value: value occupied by the thaat will form the axis
+ * of rotation
  *
  * Return: void
  */
@@ -34,37 +35,38 @@ void avl_tree_balancerr(avl_t **root, int value)
  * Return: pointer to the node with least value
  */
 
-avl_t *inorder_successor(avl_t *root)
+int inorder_successor(avl_t *root)
 {
-	avl_t *successor;
+	int successor;
 
-	successor = root;
-	while (successor->left)
-		successor = successor->left;
+	if (!root)
+		return (0);
 
+	successor = inorder_successor(root->left);
+	if (!successor)
+		return (root->n);
 	return (successor);
 }
 
 /**
- * delete_node - deletes a node whose with a specified value
- * @root: pointer to the root node of the root
+ * when_to_delete - deletes a node whose with a specified value
  * @node: pointer to the node we want to delete
  *
  * Return: pointer to the new root
  */
 
-avl_t *delete_node(avl_t *root, avl_t *node)
+int when_to_delete(avl_t *node)
 {
-	avl_t *successor = NULL, *parent = node->parent;
+	int successor = 0;
+	avl_t *parent = node->parent;
 
 	if (node)
 	{
-		/*node has no children*/
-		if (!node->left && !node->right)
+		if (!node->left && !node->right)  /*node has no children*/
 		{
 			parent->right == node ? (parent->right = NULL) : (parent->left = NULL);
 			free(node);
-			return (!parent ? NULL : root);
+			return (0);
 		}
 		/*node has no left child*/
 		if (!node->left)
@@ -76,7 +78,7 @@ avl_t *delete_node(avl_t *root, avl_t *node)
 			if (node->right)
 				node->right->parent = parent;
 			free(node);
-			return (!parent ? node->right : root);
+			return (0);
 		}
 		/*node has no right child*/
 		else if (!node->right)
@@ -88,38 +90,42 @@ avl_t *delete_node(avl_t *root, avl_t *node)
 			if (node->left)
 				node->left->parent = parent;
 			free(node);
-			return (!parent ? node->left : root);
+			return (0);
 		}
 		/*node has two children*/
 		successor = inorder_successor(node->right);
-		node->n = successor->n;
-		return (delete_node(root, successor));
-	} return (root);
+		node->n = successor;
+		return (successor);
+	} return (0);
 }
 
 /**
  * search_remove - recursively search and remove a desired node
  * from an avl
- * @root: pointer to the root node
  * @node: node to remove
  * @value: value of the node to remove
  *
  * Return: oointer to the new root
  */
 
-avl_t *search_remove(avl_t *root, avl_t *node, int value)
+avl_t *search_remove(avl_t *node, int value)
 {
-	if (!root)
-		return (NULL);
+	int when = 0;
 
 	if (!node)
 		return (NULL);
 
 	if (value < node->n)
-		return (search_remove(root, node->left, value));
+		search_remove(node->left, value);
 	else if (value > node->n)
-		return (search_remove(root, node->right, value));
-	return (delete_node(root, node));
+		search_remove(node->right, value);
+	else
+	{
+		when = when_to_delete(node);
+
+		if (when)
+			search_remove(node->right, when);
+	} return (node);
 }
 
 /**
@@ -134,8 +140,10 @@ avl_t *avl_remove(avl_t *root, int value)
 {
 	avl_t *mroot = NULL;
 
-	mroot = search_remove(root, root, value);
+	mroot = search_remove(root, value);
 	if (mroot)
-		avl_tree_balancerr(&root, value);
+		avl_tree_balancerr(&mroot, value);
+	else
+		return (NULL);
 	return (mroot);
 }
