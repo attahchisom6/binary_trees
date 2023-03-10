@@ -15,7 +15,7 @@ avl_t *create_avl_tree(avl_t *tree, int *array, int start, int end)
 	avl_t *root = NULL;
 	int mid = 0;
 
-	if (start < end)
+	if (start <= end)
 	{
 		mid = (start + end) / 2;
 		root = binary_tree_node(tree, array[mid]);
