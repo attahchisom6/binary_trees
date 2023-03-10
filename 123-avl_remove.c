@@ -14,7 +14,7 @@ void avl_tree_balancerr(avl_t **root, int value)
 
 	if (!root || !*root)
 		return;
-	if (!(*root)->left || !(*root)->right)
+	if (!(*root)->left && !(*root)->right)
 		return;
 	avl_tree_balancerr(&(*root)->left, value);
 	avl_tree_balancerr(&(*root)->right, value);
