@@ -1,7 +1,7 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_preorder - display root, then keft and finally right;
+ * binary_tree_preorder - display root, then left and finally right;
  * @tree: pointer to the root node of the tree to transverse
  * @func: pointer to function who takes as parameter the value in the node
  *
